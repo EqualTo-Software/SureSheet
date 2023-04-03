@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+model Workbook {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  workbookId String   @unique
+  createdAt  DateTime @default(now())
+}

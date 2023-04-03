@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  database:
+    build: ./mongodb_replica
+    env_file: .env
+    ports:
+      - "27018:27018"

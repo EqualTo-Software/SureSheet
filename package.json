@@ -1,0 +1,38 @@
+{
+  "name": "suresheet",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build && prisma db push",
+    "start": "next start -p $PORT",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@fontsource/fira-mono": "^4.5.10",
+    "@fontsource/inter": "^4.5.15",
+    "@fontsource/jetbrains-mono": "^4.5.12",
+    "@mui/material": "^5.11.14",
+    "@prisma/client": "^4.11.0",
+    "@types/node": "18.15.7",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "clsx": "^1.2.1",
+    "eslint": "8.36.0",
+    "eslint-config-next": "13.2.4",
+    "http-proxy": "^1.18.1",
+    "lucide-react": "^0.128.0",
+    "next": "13.2.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.3",
+    "typescript": "5.0.2",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@types/http-proxy": "^1.17.10",
+    "prisma": "^4.11.0"
+  }
+}

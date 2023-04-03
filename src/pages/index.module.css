@@ -1,0 +1,41 @@
+.newWorkbookContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.newWorkbookPaper {
+  width: 100%;
+  max-width: 300px;
+}
+
+.newWorkbookSection {
+  padding: 15px;
+}
+
+.dividerText {
+  color: #b4b7d1;
+  font-size: 9px;
+}
+.divider {
+  flex: 1;
+  border-bottom: 1px solid #f1f2f8;
+}
+
+.dropzone {
+  background: #ffffff;
+  border: 1px dashed #dee0ef;
+  border-radius: 3px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 120px;
+  color: #21243a;
+  cursor: pointer;
+}
+
+.dropzone.active {
+  background: #f1f2f8;
+}
