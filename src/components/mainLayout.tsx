@@ -40,7 +40,7 @@ export default function MainLayout(
             <Stack direction="row" justifyContent="space-between">
               <span>
                 {'Powered by '}
-                <a href="https://sheets.equalto.com/" target="_blank">
+                <a href="https://www.equalto.com/sheets" target="_blank">
                   EqualTo Sheets
                 </a>
                 : Spreadsheets as a Service for developers.
