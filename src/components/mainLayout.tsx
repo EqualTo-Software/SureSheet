@@ -20,41 +20,19 @@ export default function MainLayout(
   const [toolbarNode, setToolbarNode] = useState<HTMLDivElement | null>(null);
   const toolbarContext = useMemo((): ToolbarContextValue => ({ toolbarNode }), [toolbarNode]);
 
-  const [isMenuBarVisible, setMenuBarVisible] = useState(!properties.canHideMenuBar);
+  const [isMenuBarVisible, setMenuBarVisible] = useState(!canHideMenuBar);
 
   return (
     <div className={styles.layout}>
       <div className={styles.infoBarContainer}>
-        {!properties.canHideMenuBar ? (
-          <FullInfoBar />
+        {!canHideMenuBar ? (
+          <InfoBar />
         ) : (
-          <div className={clsx(styles.infoBar)}>
-            <Stack direction="row" justifyContent="space-between">
-              <span>
-                {'Powered by '}
-                <a href="https://www.equalto.com/sheets" target="_blank">
-                  EqualTo Sheets
-                </a>
-                : Spreadsheets as a Service for developers.
-              </span>
-              <div className={clsx(styles.actions)}>
-                <span
-                  className={clsx(styles.toggleUI)}
-                  role="button"
-                  onClick={() => setMenuBarVisible((current) => !current)}
-                >
-                  {isMenuBarVisible ? 'Hide UI' : 'Show UI'}
-                </span>
-                <a
-                  className={clsx(styles.githubLink)}
-                  href="https://www.github.com/EqualTo-Software/SureSheet"
-                  target="_blank"
-                >
-                  GitHub repo <ArrowUpRight size={9} />
-                </a>
-              </div>
-            </Stack>
-          </div>
+          <InfoBar
+            canToggleMenuBar
+            onToggle={() => setMenuBarVisible((previous) => !previous)}
+            isMenuBarVisible={isMenuBarVisible}
+          />
         )}
       </div>
       <div className={clsx(styles.menuBar, !isMenuBarVisible && styles.hidden)}>
@@ -70,15 +48,44 @@ export default function MainLayout(
   );
 }
 
-export function FullInfoBar() {
+export function InfoBar(
+  properties:
+    | {
+        canToggleMenuBar: true;
+        isMenuBarVisible: boolean;
+        onToggle: () => void;
+      }
+    | {
+        canToggleMenuBar?: false;
+      },
+) {
   return (
-    <div className={clsx(styles.infoBar, styles.centered)}>
-      {'EqualTo SureSheet is an open source tech demo, showing how you can easily build '}
-      {'software using our product EqualTo Sheets - "Spreadsheets as a service" '}
-      {' for developers. '}
-      <a href="https://www.github.com/EqualTo-Software/SureSheet" target="_blank">
-        See project on GitHub <ArrowUpRight size={9} />
-      </a>
+    <div className={styles.infoBar}>
+        <span>
+          {'Powered by '}
+          <a href="https://www.equalto.com/sheets" target="_blank">
+            EqualTo Sheets
+          </a>
+          : Spreadsheets as a Service for developers.
+        </span>
+        <div className={clsx(styles.actions)}>
+          {properties.canToggleMenuBar && (
+            <span
+              className={clsx(styles.toggleUI)}
+              role="button"
+              onClick={() => properties.onToggle()}
+            >
+              {properties.isMenuBarVisible ? 'Hide UI' : 'Show UI'}
+            </span>
+          )}
+          <a
+            className={clsx(styles.githubLink)}
+            href="https://www.github.com/EqualTo-Software/SureSheet"
+            target="_blank"
+          >
+            GitHub repo <ArrowUpRight size={9} />
+          </a>
+        </div>
     </div>
   );
 }

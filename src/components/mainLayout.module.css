@@ -16,6 +16,10 @@
   line-height: 15px;
   color: #f1f2f8;
   padding: 5px 10px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .infoBar.centered {

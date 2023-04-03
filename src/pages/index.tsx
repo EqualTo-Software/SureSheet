@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 import styles from './index.module.css';
-import MainLayout, { FullInfoBar, LogoStack } from '@/components/mainLayout';
+import MainLayout, { InfoBar, LogoStack } from '@/components/mainLayout';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -85,7 +85,7 @@ function NewWorkbookChoice(properties: { setWorkbookId: (workbookId: string) => 
 
   return (
     <div className={styles.newWorkbookLayout}>
-      <FullInfoBar />
+      <InfoBar />
       <div className={styles.newWorkbookContainer}>
         <Paper className={styles.newWorkbookPaper}>
           <LogoStack />
