@@ -1,3 +1,11 @@
+.newWorkbookLayout {
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
 .newWorkbookContainer {
   flex: 1;
   display: flex;
@@ -6,21 +14,37 @@
 }
 
 .newWorkbookPaper {
+  margin-top: 10px;
   width: 100%;
-  max-width: 300px;
+  max-width: 530px;
+  padding: 30px;
 }
 
 .newWorkbookSection {
-  padding: 15px;
+  margin-top: 30px;
 }
 
-.dividerText {
+.newWorkbookSection p + p {
+  margin-top: 5px;
+}
+
+.createNewRow {
+  display: grid;
+  grid-template-columns: 1fr min-content 1fr;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.createNewRow .createNewEmpty {
+  height: 100%;
+  border: 1px solid #dee0ef;
+  border-radius: 3px;
+}
+
+.orText {
+  padding: 10px;
   color: #b4b7d1;
   font-size: 9px;
-}
-.divider {
-  flex: 1;
-  border-bottom: 1px solid #f1f2f8;
 }
 
 .dropzone {
@@ -38,4 +62,38 @@
 
 .dropzone.active {
   background: #f1f2f8;
+}
+
+.sharingSection {
+  border-top: 1px solid #f1f2f8;
+  border-bottom: 1px solid #f1f2f8;
+  padding: 15px 0;
+  margin-top: 30px;
+}
+
+.sharingSection ul {
+  list-style-type: none;
+  margin: 15px 0;
+  padding: 0;
+}
+
+.sharingSection ul li {
+  margin: 0;
+  padding: 0;
+}
+
+.sharingSection ul li + li {
+  margin-top: 15px;
+}
+
+.sharingSection ul li img {
+  margin-right: 10px;
+  margin-bottom: -2px;
+}
+
+.sharingSection ul li code {
+  font-family: var(--font-code);
+  color: #8b8fad;
+  background: #f1f2f8;
+  border-radius: 2px;
 }

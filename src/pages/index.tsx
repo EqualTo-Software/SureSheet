@@ -1,6 +1,6 @@
 import EditorView from '@/components/editorView';
 import { useToast } from '@/components/toastProvider';
-import { Button, Paper, Stack, Typography } from '@mui/material';
+import { Button, Paper, Stack, Typography, styled } from '@mui/material';
 import clsx from 'clsx';
 import { File, Upload } from 'lucide-react';
 import { GetServerSideProps } from 'next';
@@ -8,8 +8,9 @@ import getConfig from 'next/config';
 import Head from 'next/head';
 import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import Image from 'next/image';
 import styles from './index.module.css';
-import MainLayout from '@/components/mainLayout';
+import MainLayout, { FullInfoBar, LogoStack } from '@/components/mainLayout';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -27,13 +28,13 @@ export default function Home(properties: {}) {
       <Head>
         <title>EqualTo SureSheet</title>
       </Head>
-      <MainLayout>
-        {workbookId === null ? (
-          <NewWorkbookChoice setWorkbookId={setWorkbookId} />
-        ) : (
+      {workbookId === null ? (
+        <NewWorkbookChoice setWorkbookId={setWorkbookId} />
+      ) : (
+        <MainLayout>
           <EditorView workbookId={workbookId} onNew={() => setWorkbookId(null)} />
-        )}
-      </MainLayout>
+        </MainLayout>
+      )}
     </>
   );
 }
@@ -46,7 +47,10 @@ function NewWorkbookChoice(properties: { setWorkbookId: (workbookId: string) => 
     createEmptyWorkbook().then(
       ({ workbookId }) => setWorkbookId(workbookId),
       () => {
-        pushToast({ type: 'error', message: 'Could not create a new workbook.' });
+        pushToast({
+          type: 'error',
+          message: 'Could not create a new workbook.',
+        });
       },
     );
   };
@@ -80,33 +84,101 @@ function NewWorkbookChoice(properties: { setWorkbookId: (workbookId: string) => 
   });
 
   return (
-    <div className={styles.newWorkbookContainer}>
-      <Paper className={styles.newWorkbookPaper}>
-        <div className={styles.newWorkbookSection}>
-          <Button type="button" onClick={onNew} startIcon={<File size={15} />} fullWidth>
-            Start with a blank workbook
-          </Button>
-        </div>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <div className={styles.divider} />
-          <Typography className={styles.dividerText}>OR</Typography>
-          <div className={styles.divider} />
-        </Stack>
-        <div className={styles.newWorkbookSection}>
-          <div
-            {...getRootProps({ className: clsx(styles.dropzone, isDragActive && styles.active) })}
-          >
-            <input {...getInputProps()} />
-            <Stack direction="column" spacing={1} alignItems="center">
-              <Upload size={15} />
-              <Typography>Upload a workbook (.xlsx)</Typography>
-            </Stack>
+    <div className={styles.newWorkbookLayout}>
+      <FullInfoBar />
+      <div className={styles.newWorkbookContainer}>
+        <Paper className={styles.newWorkbookPaper}>
+          <LogoStack />
+          <div className={styles.newWorkbookSection}>
+            <Typography>
+              {'A SureSheet is a workbook that always "resets" when it\'s reloaded. '}
+              {'When you share a SureSheet, recipients can edit the workbook, but their changes '}
+              {'are not saved. Reloading the SureSheet will always reset it to what was '}
+              {'originally shared.'}
+            </Typography>
+            <Typography>
+              {'The benefits of SureSheet compared to e.g. Google Sheets, is that you can share '}
+              {"or embed workbooks that won't change or expire over time."}
+            </Typography>
           </div>
-        </div>
-      </Paper>
+          <div className={styles.createNewRow}>
+            <div className={styles.createNewEmpty}>
+              <NewEmptyButton type="button" onClick={onNew} fullWidth>
+                <Stack alignItems="center" component="span" spacing={1}>
+                  <File size={15} />
+                  <span>Start with a blank workbook</span>
+                </Stack>
+              </NewEmptyButton>
+            </div>
+            <div className={styles.orText}>
+              <Typography className={styles.dividerText}>OR</Typography>
+            </div>
+            <div
+              {...getRootProps({
+                className: clsx(styles.dropzone, isDragActive && styles.active),
+              })}
+            >
+              <input {...getInputProps()} />
+              <Stack direction="column" spacing={1} alignItems="center">
+                <Upload size={15} />
+                <Typography>Upload a workbook (.xlsx)</Typography>
+              </Stack>
+            </div>
+          </div>
+          <div className={styles.newWorkbookSection}></div>
+          <div className={styles.sharingSection}>
+            <Typography fontWeight={500}>How do I share SureSheet?</Typography>
+            <ul>
+              <li>
+                <Image
+                  src={`${publicRuntimeConfig.basePath}/images/share.svg`}
+                  width={15}
+                  height={15}
+                  alt="Share"
+                />
+                <Typography component="span">Directly share a link to a SureSheet</Typography>
+              </li>
+              <li>
+                <Image
+                  src={`${publicRuntimeConfig.basePath}/images/notion.svg`}
+                  width={15}
+                  height={15}
+                  alt="Share"
+                />
+                <Typography component="span">
+                  Insert into a Notion document using <code>/embed</code>
+                </Typography>
+              </li>
+              <li>
+                <Image
+                  src={`${publicRuntimeConfig.basePath}/images/code.svg`}
+                  width={15}
+                  height={15}
+                  alt="Share"
+                />
+                <Typography component="span">
+                  Insert into a website using an <code>IFRAME</code>
+                </Typography>
+              </li>
+            </ul>
+          </div>
+        </Paper>
+      </div>
     </div>
   );
 }
+
+const NewEmptyButton = styled(Button)({
+  color: '#21243A',
+  padding: '5px',
+  minWidth: 0,
+  height: '100%',
+  fontWeight: 400,
+  fontSize: 14,
+  '&:hover': {
+    background: '#F4F4F4',
+  },
+});
 
 async function createEmptyWorkbook() {
   const response = await fetch(

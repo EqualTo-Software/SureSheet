@@ -26,15 +26,7 @@ export default function MainLayout(
     <div className={styles.layout}>
       <div className={styles.infoBarContainer}>
         {!properties.canHideMenuBar ? (
-          <div className={clsx(styles.infoBar, styles.centered)}>
-            {
-              'EqualTo SureSheet is an open source tech demo, showing how you can easily build software '
-            }
-            {'using our product EqualTo Sheets - "Spreadsheets as a service" for developers. '}
-            <a href="https://www.github.com/EqualTo-Software/SureSheet" target="_blank">
-              See project on GitHub <ArrowUpRight size={9} />
-            </a>
-          </div>
+          <FullInfoBar />
         ) : (
           <div className={clsx(styles.infoBar)}>
             <Stack direction="row" justifyContent="space-between">
@@ -67,21 +59,7 @@ export default function MainLayout(
       </div>
       <div className={clsx(styles.menuBar, !isMenuBarVisible && styles.hidden)}>
         <Stack direction="row" justifyContent="space-between">
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <a className={styles.logoLink} href="https://www.equalto.com/" target="_blank">
-              <Image
-                priority
-                src={`${publicRuntimeConfig.basePath}/images/equalto.svg`}
-                width={32}
-                height={32}
-                alt="EqualTo Logo"
-              />
-            </a>
-            <Stack direction="row" alignItems="center" spacing={0}>
-              <code className={styles.siteName}>SureSheet</code>
-              <span className={styles.betaTag}>Beta</span>
-            </Stack>
-          </Stack>
+          <LogoStack />
           <div style={{ flex: 1 }} ref={(ref) => setToolbarNode(ref)} />
         </Stack>
       </div>
@@ -89,5 +67,38 @@ export default function MainLayout(
         <ToolbarContext.Provider value={toolbarContext}>{children}</ToolbarContext.Provider>
       </div>
     </div>
+  );
+}
+
+export function FullInfoBar() {
+  return (
+    <div className={clsx(styles.infoBar, styles.centered)}>
+      {'EqualTo SureSheet is an open source tech demo, showing how you can easily build '}
+      {'software using our product EqualTo Sheets - "Spreadsheets as a service" '}
+      {' for developers. '}
+      <a href="https://www.github.com/EqualTo-Software/SureSheet" target="_blank">
+        See project on GitHub <ArrowUpRight size={9} />
+      </a>
+    </div>
+  );
+}
+
+export function LogoStack() {
+  return (
+    <Stack direction="row" alignItems="center" spacing={2}>
+      <a className={styles.logoLink} href="https://www.equalto.com/" target="_blank">
+        <Image
+          priority
+          src={`${publicRuntimeConfig.basePath}/images/equalto.svg`}
+          width={32}
+          height={32}
+          alt="EqualTo Logo"
+        />
+      </a>
+      <Stack direction="row" alignItems="center" spacing={0}>
+        <code className={styles.siteName}>SureSheet</code>
+        <span className={styles.betaTag}>Beta</span>
+      </Stack>
+    </Stack>
   );
 }
