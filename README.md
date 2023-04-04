@@ -4,6 +4,10 @@ EqualTo SureSheet lets you create and share spreadsheets using [cool URIs](https
 created this product to show what you can build with [EqualTo Sheets](https://sheets.equalto.com/),
 [our](https://www.equalto.com) "Spreadsheets as a service for developers" platform.
 
+Here are some sample SureSheets:
+[Tesla running cost calculator](https://www.equalto.com/suresheet/view/6433843c-ecb4-4533-a14e-e30445648d4c),
+[Investment growth calculator](https://www.equalto.com/suresheet/view/0e1fbb42-1b69-49f1-aa69-e1d804f28b9c).
+
 Some notes on how EqualTo SureSheet works:
 
 * When you share a SureSheet, the URL is guaranteed to _always_ open that same spreadsheet. If users modify the data in the
