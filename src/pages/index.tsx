@@ -91,14 +91,13 @@ function NewWorkbookChoice(properties: { setWorkbookId: (workbookId: string) => 
           <LogoStack />
           <div className={styles.newWorkbookSection}>
             <Typography>
-              {'A SureSheet is a workbook that always "resets" when it\'s reloaded. '}
-              {'When you share a SureSheet, recipients can edit the workbook, but their changes '}
-              {'are not saved. Reloading the SureSheet will always reset it to what was '}
-              {'originally shared.'}
+              A <b>SureSheet</b> is a spreadsheet that always {'"'}resets{'"'} when it{"'"}s
+              reloaded. When you share a SureSheet, recipients can edit it, but their changes are
+              not saved. Reloading the SureSheet will always reset it to what was originally shared.
             </Typography>
             <Typography>
-              {'The benefits of SureSheet compared to e.g. Google Sheets, is that you can share '}
-              {"or embed workbooks that won't change or expire over time."}
+              The benefit of EqualTo SureSheet compared to e.g. Google Sheets, is that you can share
+              or embed spreadsheets that won{"'"}t change or break over time.
             </Typography>
             <Typography>
               {'Here are some sample SureSheets: '}
