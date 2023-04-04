@@ -127,7 +127,7 @@ export default function EditorView(properties: EditorViewProperties) {
                   ) : undefined,
               }}
             />
-            <Typography fontSize="11px">
+            <Typography className={styles.consentText} fontSize="11px">
               {'By sharing I consent to the '}
               <a className={styles.simpleLink} href="https://www.equalto.com/tos" target="_blank">
                 Terms of Service
