@@ -1,8 +1,8 @@
 # EqualTo SureSheet
 
-EqualTo SureSheet lets you create and share spreadsheets using [cool URIs](https://www.w3.org/Provider/Style/URI). We
-created this product to show what you can build with [EqualTo Sheets](https://sheets.equalto.com/),
-[our](https://www.equalto.com) "Spreadsheets as a service for developers" platform.
+[EqualTo SureSheet](https://www.equalto.com/suresheet) lets you create and share spreadsheets using
+[cool URIs](https://www.w3.org/Provider/Style/URI). We created this product to show what you can build
+with [EqualTo Sheets](https://sheets.equalto.com/), our "Spreadsheets as a service for developers" platform.
 
 Here are some sample SureSheets:
 [Tesla running cost calculator](https://www.equalto.com/suresheet/view/6433843c-ecb4-4533-a14e-e30445648d4c),
@@ -25,6 +25,9 @@ Some notes on how EqualTo SureSheet works:
 7. `npm run dev`.
 8. Open http://localhost:3000/ in your browser.
 
+## About EqualTo
+[EqualTo](https://www.equalto.com) is based in Berlin, and we provide [EqualTo Sheets](https://sheets.equalto.com), a "Spreadsheets as a service for
+developers" platoform. We're the quickest way to enhance your software with spreadsheet capabilities.
 
 ## License
 
