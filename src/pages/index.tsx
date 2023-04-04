@@ -100,6 +100,23 @@ function NewWorkbookChoice(properties: { setWorkbookId: (workbookId: string) => 
               {'The benefits of SureSheet compared to e.g. Google Sheets, is that you can share '}
               {"or embed workbooks that won't change or expire over time."}
             </Typography>
+            <Typography>
+              {'Here are some sample SureSheets: '}
+              <a
+                className={styles.simpleLink}
+                href="https://www.equalto.com/suresheet/view/6433843c-ecb4-4533-a14e-e30445648d4c"
+              >
+                Tesla running cost calculator
+              </a>
+              {', '}
+              <a
+                className={styles.simpleLink}
+                href="https://www.equalto.com/suresheet/view/0e1fbb42-1b69-49f1-aa69-e1d804f28b9c"
+              >
+                Investment growth calculator
+              </a>
+              .
+            </Typography>
           </div>
           <div className={styles.createNewRow}>
             <div className={styles.createNewEmpty}>
@@ -125,7 +142,23 @@ function NewWorkbookChoice(properties: { setWorkbookId: (workbookId: string) => 
               </Stack>
             </div>
           </div>
-          <div className={styles.newWorkbookSection}></div>
+          <div className={styles.consentText}>
+            <Typography fontSize="11px">
+              {'By creating or uploading a spreadsheet, I consent to the '}
+              <a className={styles.simpleLink} href="https://www.equalto.com/tos" target="_blank">
+                Terms of Service
+              </a>
+              {' and '}
+              <a
+                className={styles.simpleLink}
+                href="https://www.equalto.com/privacy-policy"
+                target="_blank"
+              >
+                Privacy Policy
+              </a>
+              .
+            </Typography>
+          </div>
           <div className={styles.sharingSection}>
             <Typography fontWeight={500}>How do I share SureSheet?</Typography>
             <ul>

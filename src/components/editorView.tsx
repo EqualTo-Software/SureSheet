@@ -127,6 +127,21 @@ export default function EditorView(properties: EditorViewProperties) {
                   ) : undefined,
               }}
             />
+            <Typography fontSize="11px">
+              {'By sharing I consent to the '}
+              <a className={styles.simpleLink} href="https://www.equalto.com/tos" target="_blank">
+                Terms of Service
+              </a>
+              {' and '}
+              <a
+                className={styles.simpleLink}
+                href="https://www.equalto.com/privacy-policy"
+                target="_blank"
+              >
+                Privacy Policy
+              </a>
+              .
+            </Typography>
             <Divider />
             <Button
               disabled={sharedWorkbookId === null}

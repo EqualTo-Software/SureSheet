@@ -12,3 +12,11 @@
   vertical-align: middle;
   margin: 0 5px 0 15px;
 }
+
+.simpleLink:link,
+.simpleLink:visited,
+.simpleLink:hover,
+.simpleLink:active {
+  color: #5879f0;
+  text-decoration: none;
+}

@@ -20,6 +20,14 @@
   padding: 30px;
 }
 
+.simpleLink:link,
+.simpleLink:visited,
+.simpleLink:hover,
+.simpleLink:active {
+  color: #5879f0;
+  text-decoration: none;
+}
+
 .newWorkbookSection {
   margin-top: 30px;
 }
@@ -39,6 +47,10 @@
   height: 100%;
   border: 1px solid #dee0ef;
   border-radius: 3px;
+}
+
+.consentText {
+  margin-top: 15px;
 }
 
 .orText {
