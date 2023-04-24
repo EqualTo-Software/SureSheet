@@ -1,4 +1,4 @@
-import FormData from 'form-data';
+import NodeFormData from 'form-data';
 
 export function getSheetsApiHost(): string {
   const sheetsHost = process.env.EQUALTO_SHEETS_HOST;
@@ -55,7 +55,7 @@ export async function simulate(body: {
   inputs: SimulateInputs;
   outputs: SimulateOutputs;
 }): Promise<SimulateResult> {
-  let formData = new FormData();
+  let formData = new NodeFormData();
   formData.append('inputs', JSON.stringify(body.inputs));
   formData.append('outputs', JSON.stringify(body.outputs));
 
@@ -64,7 +64,8 @@ export async function simulate(body: {
     headers: new Headers({
       Authorization: `Bearer ${getSheetsApiLicenseId()}`,
     }),
-    body: formData,
+    // Following hack relates to https://github.com/form-data/form-data/issues/512
+    body: formData as unknown as FormData,
     credentials: 'include',
   });
 
