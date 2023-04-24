@@ -1,3 +1,5 @@
+import FormData from 'form-data';
+
 export function getSheetsApiHost(): string {
   const sheetsHost = process.env.EQUALTO_SHEETS_HOST;
   if (!sheetsHost) {
@@ -40,4 +42,35 @@ export async function createWorkbook(options?: { json: string }): Promise<{
   }
 
   return (await response.json()) as { id: string };
+}
+
+export type CellValue = string | number | boolean | null;
+export type RangeValue = CellValue[][];
+export type SimulateInputs = { [key: string]: { [key: string]: CellValue | RangeValue } };
+export type SimulateOutputs = { [key: string]: string[] };
+type SimulateResult = SimulateInputs;
+
+export async function simulate(body: {
+  workbookId: string;
+  inputs: SimulateInputs;
+  outputs: SimulateOutputs;
+}): Promise<SimulateResult> {
+  let formData = new FormData();
+  formData.append('inputs', JSON.stringify(body.inputs));
+  formData.append('outputs', JSON.stringify(body.outputs));
+
+  let response = await fetch(`${getSheetsApiHost()}api/v1/workbooks/${body.workbookId}/simulate`, {
+    method: 'POST',
+    headers: new Headers({
+      Authorization: `Bearer ${getSheetsApiLicenseId()}`,
+    }),
+    body: formData,
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error('Request failed. Code=' + response.status + ' Text=' + response.statusText);
+  }
+
+  return await response.json();
 }
