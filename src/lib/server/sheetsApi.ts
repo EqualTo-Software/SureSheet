@@ -1,5 +1,3 @@
-import NodeFormData from 'form-data';
-
 export function getSheetsApiHost(): string {
   const sheetsHost = process.env.EQUALTO_SHEETS_HOST;
   if (!sheetsHost) {
@@ -55,17 +53,15 @@ export async function simulate(body: {
   inputs: SimulateInputs;
   outputs: SimulateOutputs;
 }): Promise<SimulateResult> {
-  let formData = new NodeFormData();
-  formData.append('inputs', JSON.stringify(body.inputs));
-  formData.append('outputs', JSON.stringify(body.outputs));
+  const { workbookId, inputs, outputs } = body;
 
-  let response = await fetch(`${getSheetsApiHost()}api/v1/workbooks/${body.workbookId}/simulate`, {
+  let response = await fetch(`${getSheetsApiHost()}api/v1/workbooks/${workbookId}/simulate`, {
     method: 'POST',
     headers: new Headers({
       Authorization: `Bearer ${getSheetsApiLicenseId()}`,
+      'Content-Type': 'application/json',
     }),
-    // Following hack relates to https://github.com/form-data/form-data/issues/512
-    body: formData as unknown as FormData,
+    body: JSON.stringify({ inputs, outputs }),
     credentials: 'include',
   });
 
