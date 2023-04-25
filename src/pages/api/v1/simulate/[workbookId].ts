@@ -23,6 +23,12 @@ const SimulateOutputs: z.ZodType<SimulateOutputs> = z.record(z.string(), z.strin
 const Parameters = z.object({ inputs: SimulateInputs, outputs: SimulateOutputs });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<{}>) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
   const { workbookId } = req.query;
   if (typeof workbookId !== 'string') {
     res.status(404).send({ message: 'Invalid workbook ID.' });
