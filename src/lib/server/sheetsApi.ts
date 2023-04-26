@@ -41,33 +41,3 @@ export async function createWorkbook(options?: { json: string }): Promise<{
 
   return (await response.json()) as { id: string };
 }
-
-export type CellValue = string | number | boolean | null;
-export type RangeValue = CellValue[][];
-export type SimulateInputs = { [key: string]: { [key: string]: CellValue | RangeValue } };
-export type SimulateOutputs = { [key: string]: string[] };
-type SimulateResult = SimulateInputs;
-
-export async function simulate(body: {
-  workbookId: string;
-  inputs: SimulateInputs;
-  outputs: SimulateOutputs;
-}): Promise<SimulateResult> {
-  const { workbookId, inputs, outputs } = body;
-
-  let response = await fetch(`${getSheetsApiHost()}api/v1/workbooks/${workbookId}/simulate`, {
-    method: 'POST',
-    headers: new Headers({
-      Authorization: `Bearer ${getSheetsApiLicenseId()}`,
-      'Content-Type': 'application/json',
-    }),
-    body: JSON.stringify({ inputs, outputs }),
-    credentials: 'include',
-  });
-
-  if (!response.ok) {
-    throw new Error('Request failed. Code=' + response.status + ' Text=' + response.statusText);
-  }
-
-  return await response.json();
-}
