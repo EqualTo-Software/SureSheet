@@ -105,7 +105,7 @@ function WelcomeCopy() {
         <li>
           Business user creates a simple{' '}
           <a
-            href="https://www.equalto.com/suresheet/view/0e1fbb42-1b69-49f1-aa69-e1d804f28b9c"
+            href="https://www.equalto.com/suresheet/view/abc7cbef-2491-4787-94f8-6542fab12a4e"
             target="_blank"
           >
             financial calculator workbook
