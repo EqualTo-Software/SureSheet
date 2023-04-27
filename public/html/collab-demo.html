@@ -21,7 +21,13 @@
        * - updateDOM():    writes the result of the /simulate API to the DOM
        */
 
-      document.addEventListener('load', () => {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+      function init() {
         onFormUpdate();
         document.querySelector('.input-form').addEventListener(
           'input',
@@ -29,7 +35,7 @@
             onFormUpdate();
           }, 600),
         );
-      });
+      }
 
       let lastRequestId = 0;
 
