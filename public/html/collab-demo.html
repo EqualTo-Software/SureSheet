@@ -11,8 +11,8 @@
       /**
        * Summary
        * =======
-       * When the input controls change in the DOM, this code executes the /simulate API
-       * to determine the results from the Investment Growth Calculator with this new data.
+       * When an input control in the DOM changes, the /simulate API is executed to calculate
+       * the the results of the Investment Growth Calculator.
        *
        * Details
        * =======
@@ -68,25 +68,22 @@
       }
 
       async function simulate(initialInvestmentAmount, additionalYearlyContribution, rateOfReturn) {
-        // Suresheet: https://www.equalto.com/suresheet/view/0e1fbb42-1b69-49f1-aa69-e1d804f28b9c
-        const workbookId = '0e1fbb42-1b69-49f1-aa69-e1d804f28b9c';
+        // Suresheet: https://www.equalto.com/suresheet/view/abc7cbef-2491-4787-94f8-6542fab12a4e
+        const workbookId = 'abc7cbef-2491-4787-94f8-6542fab12a4e';
         const simulateUrl = `https://www.equalto.com/suresheet/api/v1/simulate/${workbookId}`;
-
-        const sheetName = 'Investment return';
-        const detailsRange = 'B20:F41';
 
         const response = await fetch(simulateUrl, {
           method: 'POST',
           body: JSON.stringify({
             inputs: {
-              [sheetName]: {
+              Sheet1: {
                 C6: initialInvestmentAmount,
                 C7: additionalYearlyContribution,
                 C8: rateOfReturn,
               },
             },
             outputs: {
-              [sheetName]: ['C13', detailsRange],
+              Sheet1: ['C13', 'B20:F41'],
             },
           }),
           headers: {
@@ -94,10 +91,10 @@
           },
         });
         const responseJson = await response.json();
-        const sheet = responseJson[sheetName];
+        const sheet = responseJson.Sheet1;
         return {
           capitalAtTheEnd: sheet.C13,
-          details: sheet[detailsRange],
+          details: sheet['B20:F41'],
         };
       }
 

@@ -64,11 +64,7 @@ export default function CollabApi(properties: { demoHtml: string }) {
         <WelcomeCopy />
         <div className={styles.codeContainer}>
           <div className={styles.fiddleLinkTrack}>
-            <a
-              className={styles.fiddleLink}
-              href="https://jsfiddle.net/471hcjsm/1/"
-              target="_blank"
-            >
+            <a className={styles.fiddleLink} href="https://jsfiddle.net/48mf6bqn/" target="_blank">
               Edit in JSFiddle
               <ArrowUpRight size={14} fontSize={14} />
             </a>
