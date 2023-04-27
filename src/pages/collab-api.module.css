@@ -1,0 +1,149 @@
+.grid {
+  display: grid;
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (min-width: 800px) {
+  .grid {
+    grid-template-areas:
+      'info-bar info-bar'
+      'menu-bar menu-bar'
+      'left right'
+      'footer footer';
+    grid-template-columns: 50% 50%;
+  }
+}
+
+@media screen and (max-width: 799px) {
+  .grid {
+    grid-template-areas:
+      'info-bar '
+      'menu-bar'
+      'left'
+      'right'
+      'footer';
+    grid-template-rows: min-content min-content 1fr 1fr min-content;
+  }
+}
+
+.infoBar {
+  grid-area: info-bar;
+}
+
+.menuBar {
+  grid-area: menu-bar;
+  background: linear-gradient(180deg, #292c42 0%, #1f2236 100%);
+  padding: 10px;
+}
+
+.leftPanel {
+  grid-area: left;
+  overflow: auto;
+  background: rgb(33, 36, 58);
+  color: #dee0ef;
+  padding: 10px;
+}
+
+.welcomeCopy {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #34374c;
+  color: #dee0ef;
+  border-radius: 10px;
+}
+
+.welcomeCopy h1,
+.welcomeCopy p {
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.welcomeCopy ol li + li {
+  margin-top: 10px;
+}
+
+.welcomeCopy h1 {
+  font-weight: 600;
+}
+
+.welcomeCopy a:link,
+.welcomeCopy a:visited,
+.welcomeCopy a:hover,
+.welcomeCopy a:active {
+  color: #5879f0;
+  text-decoration: none;
+}
+
+.infoIcon {
+  color: #5f6989;
+}
+
+.fiddleLink:link,
+.fiddleLink:visited,
+.fiddleLink:hover,
+.fiddleLink a:active {
+  padding: 5px 10px;
+  gap: 5px;
+  background: #565972;
+  border-radius: 33px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.fiddleLink > svg {
+  margin-left: 2px;
+  margin-bottom: -1px;
+}
+
+.leftPanel .divider {
+  height: 1px;
+  width: 100%;
+  background: rgba(84, 89, 113, 0.3);
+  margin: 20px 0;
+}
+
+.leftPanel pre {
+  margin-bottom: 10px;
+}
+
+.demoIframe {
+  grid-area: right;
+  width: 100%;
+  height: 100%;
+}
+
+.footer {
+  grid-area: footer;
+  background: linear-gradient(180deg, #292c42 0%, #1f2236 100%);
+  color: #8b8fad;
+  font-size: 9px;
+  padding: 5px;
+}
+
+.footer a:link,
+.footer a:visited,
+.footer a:hover,
+.footer a:active {
+  color: #5879f0;
+  text-decoration: none;
+}
+
+.footer .divider {
+  border-left: 1px solid #5f6989;
+  height: 8px;
+}
+
+@media screen and (max-width: 799px) {
+  .menuBar :global(.MuiButtonBase-root) {
+    min-width: min-content;
+  }
+
+  .menuBar :global(.MuiButtonBase-root) :global(.MuiButton-startIcon) {
+    margin-right: 0px;
+  }
+
+  .wideOnly {
+    display: none;
+  }
+}

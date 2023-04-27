@@ -1,0 +1,53 @@
+.infoBar {
+  background: #5879f0;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 15px;
+  color: #f1f2f8;
+  padding: 5px 10px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.infoBar.rounded {
+  border-radius: 5px;
+}
+
+.infoBar.centered {
+  text-align: center;
+}
+
+.infoBar .actions {
+  white-space: nowrap;
+}
+
+.infoBar .actions .toggleUI {
+  cursor: pointer;
+}
+
+.infoBar .actions * + *::before {
+  content: '';
+  display: inline-block;
+  height: 10px;
+  width: 1px;
+  margin: 0 10px;
+  background: #dee0ef;
+  opacity: 0.2;
+  border-radius: 11px;
+  vertical-align: middle;
+}
+
+.infoBar .actions .githubLink {
+  display: inline-block;
+}
+
+.infoBar a:link,
+.infoBar a:visited,
+.infoBar a:hover,
+.infoBar a:active {
+  color: #f1f2f8;
+  font-weight: 500;
+  text-underline-offset: 3px;
+}
