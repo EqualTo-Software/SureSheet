@@ -3,7 +3,7 @@ import { GetStaticProps } from 'next';
 import styles from './collab-api.module.css';
 import { LogoStack } from '@/components/logoStack';
 import { Button, Stack } from '@mui/material';
-import { ArrowUpRight, Book, Github, Info } from 'lucide-react';
+import { ArrowUpRight, Book, Github } from 'lucide-react';
 import { readFileSync } from 'fs';
 import path from 'path';
 import getConfig from 'next/config';
@@ -62,18 +62,22 @@ export default function CollabApi(properties: { demoHtml: string }) {
       </Stack>
       <div className={styles.leftPanel}>
         <WelcomeCopy />
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Info className={styles.infoIcon} size={14} fontSize={14} />
-            <span>This snippet is read-only.</span>
-          </Stack>
-          <a className={styles.fiddleLink} href="https://jsfiddle.net/471hcjsm/1/" target="_blank">
-            Edit in JsFiddle
-            <ArrowUpRight size={14} fontSize={14} />
-          </a>
-        </Stack>
-        <div className={styles.divider} />
-        <pre className="language-html" dangerouslySetInnerHTML={{ __html: properties.demoHtml }} />
+        <div className={styles.codeContainer}>
+          <div className={styles.fiddleLinkTrack}>
+            <a
+              className={styles.fiddleLink}
+              href="https://jsfiddle.net/471hcjsm/1/"
+              target="_blank"
+            >
+              Edit in JSFiddle
+              <ArrowUpRight size={14} fontSize={14} />
+            </a>
+          </div>
+          <pre
+            className="language-html"
+            dangerouslySetInnerHTML={{ __html: properties.demoHtml }}
+          />
+        </div>
       </div>
       <iframe
         className={styles.demoIframe}

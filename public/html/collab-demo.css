@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+  font-family: Inter;
+}
+
+h1 {
+  font-weight: 600;
+}
+
+.input-form label {
+  display: block;
+}
+
+.input-form label + label {
+  margin-top: 10px;
+}
+
+.input-form label input {
+  padding: 5px 10px;
+  background: #ffffff;
+  border: 1px solid #b4b7d1;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.output {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.output.loading {
+  opacity: 0.2;
+}
+
+.output table {
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.output table thead {
+  background: #f1f2f8;
+  font-weight: 600;
+  padding: 15px 10px;
+}
+
+.output table thead tr th {
+  border: 1px solid #dee0ef;
+}
+
+.output table tbody th,
+.output table tbody td {
+  padding: 10px;
+  font-weight: 400;
+  background: #ffffff;
+  border: 1px solid #dee0ef;
+}

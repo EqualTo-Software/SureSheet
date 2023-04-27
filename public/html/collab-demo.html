@@ -4,90 +4,32 @@
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"
     ></script>
-    <style type="text/css">
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
-      body {
-        font-family: Inter;
-      }
-
-      h1 {
-        font-weight: 600;
-      }
-
-      .input-form label {
-        display: block;
-      }
-
-      .input-form label + label {
-        margin-top: 10px;
-      }
-
-      .input-form label input {
-        padding: 5px 10px;
-        background: #ffffff;
-        border: 1px solid #b4b7d1;
-        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-      }
-
-      .output {
-        transition: opacity 0.2s ease-in-out;
-      }
-
-      .output.loading {
-        opacity: 0.2;
-      }
-
-      .output table {
-        margin-top: 20px;
-        border-collapse: collapse;
-      }
-
-      .output table thead {
-        background: #f1f2f8;
-        font-weight: 600;
-        padding: 15px 10px;
-      }
-
-      .output table thead tr th {
-        border: 1px solid #dee0ef;
-      }
-
-      .output table tbody th,
-      .output table tbody td {
-        padding: 10px;
-        font-weight: 400;
-        background: #ffffff;
-        border: 1px solid #dee0ef;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Inputs</h1>
-    <form class="input-form">
-      <label>
-        Initial investment amount:
-        <input name="initialInvestmentAmount" type="number" value="1000" step="0.01" />
-      </label>
-      <label>
-        Additional yearly contribution:
-        <input name="additionalYearlyContribution" type="number" value="100" step="0.01" />
-      </label>
-      <label>
-        Rate of return (%):
-        <input name="rateOfReturn" type="number" value="5" step="0.01" />
-      </label>
-    </form>
-
-    <div class="output">
-      <h1>Results</h1>
-      Capital at the end of term: <span class="capitalAtTheEnd">-</span>
-      <div class="details"></div>
-    </div>
-
+    <link rel="stylesheet" href="./collab-demo.css" />
     <script type="text/javascript">
       //<![CDATA[
+
+      /**
+       * Summary
+       * =======
+       * When the input controls change in the DOM, this code executes the /simulate API
+       * to determine the results from the Investment Growth Calculator with this new data.
+       *
+       * Details
+       * =======
+       * - onFormUpdate(): when the inputs in the DOM change, this event handler is called. It
+       *                   executes the /simulate API via a call to simulate()
+       * - updateDOM():    writes the result of the /simulate API to the DOM
+       */
+
+      document.addEventListener('load', () => {
+        onFormUpdate();
+        document.querySelector('.input-form').addEventListener(
+          'input',
+          _.debounce((event) => {
+            onFormUpdate();
+          }, 600),
+        );
+      });
 
       let lastRequestId = 0;
 
@@ -118,14 +60,6 @@
             }
           });
       }
-
-      onFormUpdate();
-      document.querySelector('.input-form').addEventListener(
-        'input',
-        _.debounce((event) => {
-          onFormUpdate();
-        }, 600),
-      );
 
       async function simulate(initialInvestmentAmount, additionalYearlyContribution, rateOfReturn) {
         // Suresheet: https://www.equalto.com/suresheet/view/0e1fbb42-1b69-49f1-aa69-e1d804f28b9c
@@ -250,5 +184,28 @@
 
       //]]>
     </script>
+  </head>
+  <body>
+    <h1>Inputs</h1>
+    <form class="input-form">
+      <label>
+        Initial investment amount:
+        <input name="initialInvestmentAmount" type="number" value="1000" step="0.01" />
+      </label>
+      <label>
+        Additional yearly contribution:
+        <input name="additionalYearlyContribution" type="number" value="100" step="0.01" />
+      </label>
+      <label>
+        Rate of return (%):
+        <input name="rateOfReturn" type="number" value="5" step="0.01" />
+      </label>
+    </form>
+
+    <div class="output">
+      <h1>Results</h1>
+      Capital at the end of term: <span class="capitalAtTheEnd">-</span>
+      <div class="details"></div>
+    </div>
   </body>
 </html>
