@@ -1,5 +1,6 @@
 import { ToastProvider } from '@/components/toastProvider';
 import '@/styles/globals.css';
+import '@/styles/dracula-prism.css';
 import '@fontsource/fira-mono/400.css';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
@@ -13,6 +14,7 @@ const theme = createTheme({
   spacing: 5,
   palette: {
     secondary: { main: '#21243A' },
+    info: { main: '#4E5161' },
   },
   typography: {
     fontFamily: 'Inter',

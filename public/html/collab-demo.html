@@ -1,0 +1,217 @@
+<html>
+  <head>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"
+    ></script>
+    <link rel="stylesheet" href="./collab-demo.css" />
+    <script type="text/javascript">
+      //<![CDATA[
+
+      /**
+       * Summary
+       * =======
+       * When the input controls change in the DOM, this code executes the /simulate API
+       * to determine the results from the Investment Growth Calculator with this new data.
+       *
+       * Details
+       * =======
+       * - onFormUpdate(): when the inputs in the DOM change, this event handler is called. It
+       *                   executes the /simulate API via a call to simulate()
+       * - updateDOM():    writes the result of the /simulate API to the DOM
+       */
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+      function init() {
+        onFormUpdate();
+        document.querySelector('.input-form').addEventListener(
+          'input',
+          _.debounce((event) => {
+            onFormUpdate();
+          }, 600),
+        );
+      }
+
+      let lastRequestId = 0;
+
+      function onFormUpdate() {
+        const requestId = lastRequestId + 1;
+        lastRequestId = requestId;
+
+        const inputs = readInputs();
+
+        startLoading();
+
+        simulate(
+          inputs.initialInvestmentAmount,
+          inputs.additionalYearlyContribution,
+          inputs.rateOfReturn,
+        )
+          .then(({ capitalAtTheEnd, details }) => {
+            if (lastRequestId === requestId) {
+              updateDOM(capitalAtTheEnd, details);
+            }
+          })
+          .catch((error) => {
+            console.error('Could not get simulation results', error);
+          })
+          .finally(() => {
+            if (lastRequestId === requestId) {
+              stopLoading();
+            }
+          });
+      }
+
+      async function simulate(initialInvestmentAmount, additionalYearlyContribution, rateOfReturn) {
+        // Suresheet: https://www.equalto.com/suresheet/view/0e1fbb42-1b69-49f1-aa69-e1d804f28b9c
+        const workbookId = '0e1fbb42-1b69-49f1-aa69-e1d804f28b9c';
+        const simulateUrl = `https://www.equalto.com/suresheet/api/v1/simulate/${workbookId}`;
+
+        const sheetName = 'Investment return';
+        const detailsRange = 'B20:F41';
+
+        const response = await fetch(simulateUrl, {
+          method: 'POST',
+          body: JSON.stringify({
+            inputs: {
+              [sheetName]: {
+                C6: initialInvestmentAmount,
+                C7: additionalYearlyContribution,
+                C8: rateOfReturn,
+              },
+            },
+            outputs: {
+              [sheetName]: ['C13', detailsRange],
+            },
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const responseJson = await response.json();
+        const sheet = responseJson[sheetName];
+        return {
+          capitalAtTheEnd: sheet.C13,
+          details: sheet[detailsRange],
+        };
+      }
+
+      function readInputs() {
+        const initialInvestmentInput = document.querySelector(
+          'input[name=initialInvestmentAmount]',
+        );
+        const additionalYearContributionInput = document.querySelector(
+          'input[name=additionalYearlyContribution]',
+        );
+        const rateOfReturnInput = document.querySelector('input[name=rateOfReturn]');
+
+        const initialInvestmentAmount = parseFloat(initialInvestmentInput.value);
+        const additionalYearlyContribution = parseFloat(additionalYearContributionInput.value);
+        const rateOfReturn = parseFloat(rateOfReturnInput.value) / 100.0;
+
+        return {
+          initialInvestmentAmount,
+          additionalYearlyContribution,
+          rateOfReturn,
+        };
+      }
+
+      function startLoading() {
+        const output = document.querySelector('.output');
+        output.classList.add('loading');
+      }
+
+      function stopLoading() {
+        const output = document.querySelector('.output');
+        output.classList.remove('loading');
+      }
+
+      function updateDOM(capitalAtTheEnd, details) {
+        const usdNumberFormat = new Intl.NumberFormat(navigator.language, {
+          style: 'currency',
+          currency: 'USD',
+          currencyDisplay: 'narrowSymbol',
+        });
+
+        const capitalSlot = document.querySelector('.output .capitalAtTheEnd');
+        capitalSlot.innerText = usdNumberFormat.format(capitalAtTheEnd);
+
+        const detailsSlot = document.querySelector('.output .details');
+        if (details.length > 0) {
+          const table = document.createElement('table');
+          const tableHead = document.createElement('thead');
+          const tableHeadRow = document.createElement('tr');
+          const tableBody = document.createElement('tbody');
+
+          const [headers, ...data] = details;
+
+          for (const header of headers) {
+            const cell = document.createElement('th');
+            cell.innerText = header;
+            tableHeadRow.appendChild(cell);
+          }
+
+          for (const dataRow of data) {
+            if (dataRow.every((dataCell) => dataCell == null)) {
+              continue;
+            }
+            const row = document.createElement('tr');
+            const [year, ...currencyDataCells] = dataRow;
+
+            const th = document.createElement('th');
+            th.innerText = year;
+            row.appendChild(th);
+
+            for (const currencyCell of currencyDataCells) {
+              const cell = document.createElement('td');
+              if (currencyCell !== null) {
+                cell.innerText = usdNumberFormat.format(currencyCell);
+              }
+              row.appendChild(cell);
+            }
+
+            tableBody.appendChild(row);
+          }
+
+          tableHead.appendChild(tableHeadRow);
+          table.appendChild(tableHead);
+          table.appendChild(tableBody);
+
+          detailsSlot.replaceChildren(table);
+        } else {
+          detailsSlot.replaceChildren();
+        }
+      }
+
+      //]]>
+    </script>
+  </head>
+  <body>
+    <h1>Inputs</h1>
+    <form class="input-form">
+      <label>
+        Initial investment amount:
+        <input name="initialInvestmentAmount" type="number" value="1000" step="0.01" />
+      </label>
+      <label>
+        Additional yearly contribution:
+        <input name="additionalYearlyContribution" type="number" value="100" step="0.01" />
+      </label>
+      <label>
+        Rate of return (%):
+        <input name="rateOfReturn" type="number" value="5" step="0.01" />
+      </label>
+    </form>
+
+    <div class="output">
+      <h1>Results</h1>
+      Capital at the end of term: <span class="capitalAtTheEnd">-</span>
+      <div class="details"></div>
+    </div>
+  </body>
+</html>

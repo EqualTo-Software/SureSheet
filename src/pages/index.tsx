@@ -10,7 +10,9 @@ import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 import styles from './index.module.css';
-import MainLayout, { InfoBar, LogoStack } from '@/components/mainLayout';
+import MainLayout from '@/components/mainLayout';
+import { LogoStack } from '@/components/logoStack';
+import { InfoBar } from '@/components/infoBar';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -85,10 +87,10 @@ function NewWorkbookChoice(properties: { setWorkbookId: (workbookId: string) => 
 
   return (
     <div className={styles.newWorkbookLayout}>
-      <InfoBar />
+      <InfoBar rounded showGithubLink />
       <div className={styles.newWorkbookContainer}>
         <Paper className={styles.newWorkbookPaper}>
-          <LogoStack />
+          <LogoStack siteName="SureSheet" />
           <div className={styles.newWorkbookSection}>
             <Typography>
               A <b>SureSheet</b> is a spreadsheet that always {'"'}resets{'"'} when it{"'"}s
