@@ -93,30 +93,7 @@ function NewWorkbookChoice(properties: { setWorkbookId: (workbookId: string) => 
           <LogoStack siteName="SureSheet" />
           <div className={styles.newWorkbookSection}>
             <Typography>
-              A <b>SureSheet</b> is a spreadsheet that always {'"'}resets{'"'} when it{"'"}s
-              reloaded. When you share a SureSheet, recipients can edit it, but their changes are
-              not saved. Reloading the SureSheet will always reset it to what was originally shared.
-            </Typography>
-            <Typography>
-              The benefit of EqualTo SureSheet compared to e.g. Google Sheets, is that you can share
-              or embed spreadsheets that won{"'"}t change or break over time.
-            </Typography>
-            <Typography>
-              {'Here are some sample SureSheets: '}
-              <a
-                className={styles.simpleLink}
-                href="https://www.equalto.com/suresheet/view/6433843c-ecb4-4533-a14e-e30445648d4c"
-              >
-                Tesla running cost calculator
-              </a>
-              {', '}
-              <a
-                className={styles.simpleLink}
-                href="https://www.equalto.com/suresheet/view/0e1fbb42-1b69-49f1-aa69-e1d804f28b9c"
-              >
-                Investment growth calculator
-              </a>
-              .
+              EqualTo SureSheet will be discontinued on Dec 7th 2023. All data will be deleted at that time.
             </Typography>
           </div>
           <div className={styles.createNewRow}>

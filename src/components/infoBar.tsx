@@ -23,11 +23,7 @@ export function InfoBar(
       className={clsx(properties.className, styles.infoBar, properties.rounded && styles.rounded)}
     >
       <span>
-        {'Powered by '}
-        <a href="https://www.equalto.com/sheets" target="_blank">
-          EqualTo Sheets
-        </a>
-        : Spreadsheets as a Service for developers.
+        EqualTo SureSheet will be discontinued on Dec 7th, 2023. All sheets will be deleted at that time.
       </span>
       <div className={clsx(styles.actions)}>
         {properties.canToggleMenuBar && (
